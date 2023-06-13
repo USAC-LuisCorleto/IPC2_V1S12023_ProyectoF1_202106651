@@ -1,4 +1,5 @@
 from nodoldec import Nodo
+from pelicula import Película
 import xml.etree.cElementTree as ET
 
 class ListaEnlazadaCircularDoble:
@@ -34,6 +35,59 @@ class ListaEnlazadaCircularDoble:
                 actual = actual.siguiente
                 if actual == self.cabeza:
                     break
+    
+    def eliminar_pelicula(self, categoria, titulo):
+        actual = self.cabeza
+        encontrado = False
+
+        while True:
+            if actual.dato.nombre_categoria == categoria and actual.dato.titulo == titulo:
+                encontrado = True
+                break
+            actual = actual.siguiente
+            if actual == self.cabeza:
+                break
+        
+        if encontrado:
+            if actual == self.cabeza:
+                if self.cabeza.siguiente == self.cabeza:
+                    self.cabeza = None
+                else:
+                    ultimo = self.cabeza.anterior
+                    siguiente = self.cabeza.siguiente
+                    ultimo.siguiente = siguiente
+                    siguiente.anterior = ultimo
+
+            else:
+                anterior = actual.anterior
+                siguiente = actual.siguiente
+                anterior.siguiente = siguiente
+                siguiente.anterior = anterior
+
+            tree = ET.parse("categorias.xml")
+            root = tree.getroot()
+
+            for categoria_element in root.findall("categoria"):
+                nombre_element = categoria_element.find("nombre")
+                if nombre_element.text == categoria:
+                    peliculas_element = categoria_element.find("peliculas")
+                    for pelicula_element in peliculas_element.findall("pelicula"):
+                        titulo_element = pelicula_element.find("titulo")
+                        if titulo_element.text == titulo:
+                            peliculas_element.remove(pelicula_element)
+                            break
+
+                    if len(peliculas_element.findall("pelicula")) == 0:
+                        root.remove(categoria_element)
+                    break
+
+            tree.write("categorias.xml")
+
+            print("---------------------------------")
+            print("Película eliminada correctamente.")
+        else:
+            print("----------------------------------------")
+            print("La película no se encuentra en la lista.")
 
     def guardar_en_xml(self):
         root = ET.Element("categorias")
@@ -113,9 +167,11 @@ class ListaEnlazadaCircularDoble:
             if actual == self.cabeza:
                 break
         self.guardar_en_xml()
+        print("-----------------------------------")
         print("Categoría actualizada correctamente")
 
     def editar_peliculas(self):
+        print("-------------------------------------------------------------")
         categoria = input("Ingrese el nombre de la categoría a la que pertenece la película: ")
         titulo = input("Ingrese el título de la película a editar: ")
 
@@ -137,4 +193,27 @@ class ListaEnlazadaCircularDoble:
             if actual == self.cabeza:
                 break
         self.guardar_en_xml()
+        print("----------------------------------")
         print("Película actualizada correctamente")
+
+    def cargar_xml(self, archivo):
+        tree = ET.parse(archivo)
+        root = tree.getroot()
+
+        for categoria_element in root.findall("categoria"):
+            nombre_categoria = categoria_element.find("nombre").text
+            peliculas_element = categoria_element.find("peliculas")
+
+            for pelicula_element in peliculas_element.findall("pelicula"):
+                titulo = pelicula_element.find("titulo").text
+                director = pelicula_element.find("director").text
+                anio = pelicula_element.find("anio").text
+                fecha = pelicula_element.find("fecha").text
+                hora = pelicula_element.find("hora").text
+
+                pelicula = Película(nombre_categoria, titulo, director, anio, fecha, hora)
+                self.add(pelicula)
+        
+        self.guardar_en_xml()
+        print("----------------------------")
+        print("Datos cargados correctamente")

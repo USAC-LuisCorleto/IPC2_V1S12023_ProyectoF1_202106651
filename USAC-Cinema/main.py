@@ -159,6 +159,16 @@ while True:
                             if opcion_gestionPeliculas == "3":
                                 print("--------------------------------------------")
                                 print("Usted va a eliminar una Categoría o Película")
+                                cat_elim = input("Ingrese el nombre de la categoría a eliminar: ")
+                                pel_elim = input("Ingrese el nombre de la película a eliminar: ")
+                                ListaDobleCircular.eliminar_pelicula(cat_elim, pel_elim)
+
+                            if opcion_gestionPeliculas == "4":
+                                print("---------------------------------------------------------------------")
+                                print("Usted va a cargar categorías y películas por medio de un archivo XML.")
+                                print("Ingrese el nombre del archivo XML tal y como está en su lista de archivos.")
+                                nombre_archivoCatPel = input()
+                                ListaDobleCircular.cargar_xml(nombre_archivoCatPel)
 
                     #Selección de la opción "Gestión de Salas"
                     elif opcion_menuAdmin == "3":
@@ -219,7 +229,8 @@ while True:
                     break
                 elif reg == "1":
                     continue
-
+        
+        #Selección ver listado de películas
         elif opcion=="3":
             print("--USTED SE ENCUENTRA EN LA OPCIÓN VER LISTADO DE PELÍCULAS--")
             opcion_valida = True
