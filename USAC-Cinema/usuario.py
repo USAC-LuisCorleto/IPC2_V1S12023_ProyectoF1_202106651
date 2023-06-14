@@ -8,6 +8,7 @@ class Usuario:
         self.contraseña = contraseña
 
     def imprimir(self):
+        print("------------------")
         print(f"Rol: {self.rol}")
         print(f"Nombre: {self.nombre}")
         print(f"Apellido: {self.apellido}")

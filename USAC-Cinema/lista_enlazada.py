@@ -177,6 +177,8 @@ class ListaEnlazadaSimple:
         tree = ET.parse(archivo)
         root = tree.getroot()
 
+        self.cabeza = None
+
         for usuario_elem in root.findall("usuario"):
             rol_elem = usuario_elem.find("rol").text
             nombre_elem = usuario_elem.find("nombre").text
@@ -188,6 +190,6 @@ class ListaEnlazadaSimple:
             nuevo_usuario = Usuario(rol_elem, nombre_elem, apellido_elem, telefono_elem, correo_elem, contraseña_elem)
             self.add(nuevo_usuario)
 
-            self.actualizar_correo_usuario_xml(usuario_elem, nuevo_usuario)
+            self.generar_archivo_XML()
 
         print("XML cargado correctamente.")

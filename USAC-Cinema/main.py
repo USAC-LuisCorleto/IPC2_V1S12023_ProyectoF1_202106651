@@ -2,11 +2,15 @@ from usuario import Usuario
 from lista_enlazada import ListaEnlazadaSimple
 from pelicula import Película
 from listad_enlazadac import ListaEnlazadaCircularDoble
+from sala import Sala
+from listad_enlazada import ListaEnlazadaDoble
 
 admin = "202106651"
 contraseña = "3082203580607"
 ListaSimple = ListaEnlazadaSimple()
 ListaDobleCircular = ListaEnlazadaCircularDoble()
+ListaDoble = ListaEnlazadaDoble()
+incremento = 0
 
 #Método para el menú
 def mostrar_menu():
@@ -116,7 +120,6 @@ while True:
 
                     #Selección de la opción "Gestión de Categorías y películas"
                     elif opcion_menuAdmin == "2":
-                        print()
                         while True:
                             print("-----------------------------------------------------")
                             print("Usted se encuentra en la opción 'Gestionar Categorías y Películas'.")
@@ -163,6 +166,7 @@ while True:
                                 pel_elim = input("Ingrese el nombre de la película a eliminar: ")
                                 ListaDobleCircular.eliminar_pelicula(cat_elim, pel_elim)
 
+                            #Selección Cargar o leer categorías y películas
                             if opcion_gestionPeliculas == "4":
                                 print("---------------------------------------------------------------------")
                                 print("Usted va a cargar categorías y películas por medio de un archivo XML.")
@@ -172,7 +176,56 @@ while True:
 
                     #Selección de la opción "Gestión de Salas"
                     elif opcion_menuAdmin == "3":
-                        print()
+                        while True:
+                            print("------------------------------------------------")
+                            print("Usted se encuentra en la opción Gestión de salas")
+                            print("[1]. Editar Salas.")
+                            print("[2]. Crear Salas.")
+                            print("[3]. Eliminar Salas.")
+                            print("[4]. Cargar Salas.")
+                            print("[5]. Regresar.")
+                            opcion_gestionSalas = input()
+                            
+                            #Selección Editar Salas
+                            if opcion_gestionSalas == "1":
+                                print("--------------------------")
+                                print("Usted va a editar una sala")
+                                sala_edit = input("Ingrese el número de la sala a editar: ")
+                                nuevos_asientos = input("Ingrese el número de asientos: ")
+                                ListaDoble.editar_salas(sala_edit, nuevos_asientos)
+                                print("--------------------------")
+                                print("Sala editada correctamente")
+
+                            #Selección Crear Salas
+                            if opcion_gestionSalas == "2":
+                                incremento+=1
+                                print("-------------------------")
+                                print("Usted va a crear una sala")
+                                no_sala = f"#USACIPC2_202106651_{incremento}"
+                                print("Ingrese el número de asientos disponibles en la sala: ")
+                                asientos = input()
+
+                                sala = Sala(no_sala, asientos)
+                                ListaDoble.add(sala)
+                                print("Sala agregada correctamente")
+                                ListaDoble.Imprimir()
+                                ListaDoble.guardar_en_xml()
+
+                            #Selección Eliminar Salas.
+                            if opcion_gestionSalas == "3":
+                                print("----------------------------")
+                                print("Usted va a eliminar una sala")
+                                sala_elim = input("Ingrese el número de la sala a eliminar: ")
+                                ListaDoble.eliminar_sala(sala_elim)
+                                print("----------------------------")
+                                print("Sala eliminada correctamente")
+
+                            #Selección Cargar o Leer XML
+                            if opcion_gestionSalas == "4":
+                                print("----------------------------------------------------")
+                                print("Usted va a cargar Salas por medio de un archivo XML.")
+                                nombre_archivoSalas = input("Ingrese el nombre del archivo XML tal y como está en su lista de archivos: ")
+                                ListaDoble.cargar_xml(nombre_archivoSalas)
 
                     #Selección de la opción "Cerrar sesión"
                     elif opcion_menuAdmin == "4":
