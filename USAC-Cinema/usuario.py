@@ -6,6 +6,8 @@ class Usuario:
         self.telefono = telefono
         self.correo = correo
         self.contraseña = contraseña
+        self.historialBoletos = []
+        self.peliculasFavoritas = []
 
     def imprimir(self):
         print("------------------")
@@ -14,3 +16,7 @@ class Usuario:
         print(f"Apellido: {self.apellido}")
         print(f"Teléfono: {self.telefono}")
         print(f"Correo: {self.correo}")
+
+    def imprimir_pelis_favs(self):
+        for pelicula in self.peliculasFavoritas:
+            print(pelicula)

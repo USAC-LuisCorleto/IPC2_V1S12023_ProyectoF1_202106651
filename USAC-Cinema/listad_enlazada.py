@@ -125,3 +125,9 @@ class ListaEnlazadaDoble:
             self.actualizar_xml()
             print("--------------------------")
             print("XML Cargado correctamente.")
+
+    def Imprimir_sala(self):
+        actual = self.cabeza
+        while actual is not None:
+            actual.dato.imprimir_sala()
+            actual = actual.siguiente

@@ -217,3 +217,29 @@ class ListaEnlazadaCircularDoble:
         self.guardar_en_xml()
         print("----------------------------")
         print("Datos cargados correctamente")
+
+    def Imprimir_pelis(self):
+        if self.esta_vacia():
+            print("-------------------")
+            print("La lista está vacía.")
+            return
+        else:
+            actual = self.cabeza
+            while True:
+                actual.dato.imprimir_pelis()
+                actual = actual.siguiente
+                if actual == self.cabeza:
+                    break
+    
+    def Imprimir_funciones_compra(self):
+        if self.esta_vacia():
+            print("-------------------")
+            print("La lista está vacía.")
+            return
+        else:
+            actual = self.cabeza
+            while True:
+                actual.dato.imprimir_funciones()
+                actual = actual.siguiente
+                if actual == self.cabeza:
+                    break

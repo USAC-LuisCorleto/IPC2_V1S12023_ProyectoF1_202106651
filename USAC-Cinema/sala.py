@@ -9,3 +9,7 @@ class Sala:
         print(f"Cine: {self.nombre_cine}")
         print(f"Número de sala: {self.numero_sala}")
         print(f"Capacidad: {self.capacidad}")
+
+    def imprimir_sala(self):
+        print("-------------------------------------------------------------")
+        print(f"Número de sala: {self.numero_sala} Asientos: {self.capacidad}")

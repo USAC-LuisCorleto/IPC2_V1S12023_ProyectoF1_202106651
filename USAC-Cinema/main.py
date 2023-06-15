@@ -11,6 +11,7 @@ ListaSimple = ListaEnlazadaSimple()
 ListaDobleCircular = ListaEnlazadaCircularDoble()
 ListaDoble = ListaEnlazadaDoble()
 incremento = 0
+pels_favoritas = []
 
 #Método para el menú
 def mostrar_menu():
@@ -173,6 +174,11 @@ while True:
                                 print("Ingrese el nombre del archivo XML tal y como está en su lista de archivos.")
                                 nombre_archivoCatPel = input()
                                 ListaDobleCircular.cargar_xml(nombre_archivoCatPel)
+                            
+                            if opcion_gestionPeliculas == "5":
+                                print("-------------------------------")
+                                print("Regresando al menú principal...")
+                                break
 
                     #Selección de la opción "Gestión de Salas"
                     elif opcion_menuAdmin == "3":
@@ -227,6 +233,11 @@ while True:
                                 nombre_archivoSalas = input("Ingrese el nombre del archivo XML tal y como está en su lista de archivos: ")
                                 ListaDoble.cargar_xml(nombre_archivoSalas)
 
+                            if opcion_gestionSalas == "5":
+                                print("-------------")
+                                print("Regresando...")
+                                break
+
                     #Selección de la opción "Cerrar sesión"
                     elif opcion_menuAdmin == "4":
                         print("------------------")
@@ -236,18 +247,116 @@ while True:
             #Función que retorna el usuario ingresado si lo encuentra en alguno de los nodos de la lista.
             usuario_encontrado = ListaSimple.buscar_usuario(usuarioIniciarSesion, contraseñaIniciarSesion)
             if usuario_encontrado is not None:
-                print("---------------------------------")
-                print("--BIENVENIDO AL MENÚ DE USUARIO--")
-                print("Elija una opción")
-                print("[1]. Ver listado de películas.")
-                print("[2]. Listado de películas favoritas.")
-                print("[3]. Comprar boletos.")
-                print("[4]. Historial de boletos comprados.")
-                print("[5]. Cerrar sesión.")
-                opcion_menUsuario = input()
+                while True:
+                    print("---------------------------------")
+                    print("--BIENVENIDO AL MENÚ DE USUARIO--")
+                    print("Elija una opción")
+                    print("[1]. Ver listado de películas.")
+                    print("[2]. Listado de películas favoritas.")
+                    print("[3]. Comprar boletos.")
+                    print("[4]. Historial de boletos comprados.")
+                    print("[5]. Cerrar sesión.")
+                    opcion_menUsuario = input()
+
+                    if opcion_menUsuario == "1":
+                        print("---------------------------------")
+                        print("Listado de pelícuals disponibles:")
+                        ListaDobleCircular.Imprimir()
+
+                    if opcion_menUsuario == "2":
+                        while True:
+                            print("-------------------------------")
+                            print("Elija una opción: ")
+                            print("[1]. Agregar película a favoritos.")
+                            print("[2]. Ver listado de favoritos.")
+                            print("[3]. Regresar.")
+                            opcion_pelisFavs = input()
+
+                            if opcion_pelisFavs == "1":
+                                print("-----------------------------------------")
+                                print("Películas que puede agregar a favoritos: ")
+                                ListaDobleCircular.Imprimir_pelis()
+                                pelicula_fav_agregar = input("Ingresa el nombre de la película: ")
+                                
+                                nodo_actual = ListaDobleCircular.cabeza
+                                pelicula_encontrada = False
+
+                                while True:
+                                    if nodo_actual.dato.titulo == pelicula_fav_agregar:
+                                        pelicula_encontrada = True
+                                        break
+
+                                    nodo_actual = nodo_actual.siguiente
+
+                                    if nodo_actual == ListaDobleCircular.cabeza:
+                                        break
+                                if pelicula_encontrada:
+                                    usuario_encontrado.peliculasFavoritas.append(pelicula_fav_agregar)
+                                    print("--------------------------------------------")
+                                    print("Película agregada a favoritos correctamente.")
+                                else:
+                                    print("----------------------")
+                                    print("La película no existe.")
+
+                            if opcion_pelisFavs == "2":
+                                print("---------------------")
+                                print("Películas favoritas: ")
+                                if len(usuario_encontrado.peliculasFavoritas) == 0:
+                                    print("---------------------------------------------------")
+                                    print("No tiene películas favoritas agregadas actualmente.")
+                                else:
+                                    usuario_encontrado.imprimir_pelis_favs()
+
+                            if opcion_pelisFavs == "3":
+                                print("-------------")
+                                print("Regresando...")
+                    
+                    if opcion_menUsuario == "3":
+                        print("----------------------------------------------")
+                        print("Usted va a comprar un boleto para una función.")
+                        ListaDobleCircular.Imprimir_funciones_compra()
+                        print("-------------------------------------------")
+                        funcion_compra = input("Seleccione la función a la que desea asistir: ")
+                        fechaFuncion_compra = input("Seleccione la fecha de la función a la que desea asistir: ")
+                        horaFuncion_compra = input("Seleccione la hora a la que desea asistir: ")
+
+                        nodo_actual = ListaDobleCircular.cabeza
+
+                        pelicula_encontrada = False
+                        fecha_encontrada = False
+                        hora_encontrada = False
+
+                        while nodo_actual is not None:
+                            if nodo_actual.dato.titulo == funcion_compra and nodo_actual.dato.fecha_funcion == fechaFuncion_compra and nodo_actual.dato.hora_funcion == horaFuncion_compra:
+                                pelicula_encontrada = True
+                                break
+
+                            nodo_actual = nodo_actual.siguiente
+
+                            if nodo_actual == ListaDobleCircular.cabeza:
+                                break
+                        if pelicula_encontrada:
+                            ListaDoble.Imprimir_sala()
+                            print("-------------------------------------------------------------")
+                            sala_seleccion = input("Ingrese el nombre de la sala en donde verá la función: ")
+
+                        else:
+                            print("--------------------------------------------")
+                            print("Algún dato no coincide, vuelva a intentarlo.")
+                            break
+
+
+                    if opcion_menUsuario == "4":
+                        print("--------------------------------")
+                        print("Historial de boletos comprados: ")
+
+                    if opcion_menUsuario == "5":
+                        print("------------------")
+                        print("Cerrando sesión...")
 
             #Si el usuario no fue encontrado simplemente sale de la condición y debe volver a intentarlo.
             else:
+                print("-----------------------------------------")
                 print("--SU USUARIO NO SE ENCUENTRA REGISTRADO--")
                 print("Regresando al menú principal...")
                 break
@@ -257,6 +366,7 @@ while True:
             while  True:
                 opcion_valida = True
                 Rol = "Cliente"
+                print("-----------------------------------------------")
                 print("--USTED SE ENCUENTRA EN LA OPCIÓN REGISTRARSE--")
                 print("Ingrese su nombre: ")
                 nombre_usuario = input()
@@ -273,6 +383,7 @@ while True:
                 print("Usuario registrado correctamente.")
                 ListaSimple.Imprimir()
 
+                print("------------------------------")
                 print("¿Desea registrar otro usuario?")
                 print("[1]. Sí")
                 print("[2]. No")
@@ -286,6 +397,7 @@ while True:
         #Selección ver listado de películas
         elif opcion=="3":
             print("--USTED SE ENCUENTRA EN LA OPCIÓN VER LISTADO DE PELÍCULAS--")
+            ListaDobleCircular.Imprimir()
             opcion_valida = True
 
         else:
