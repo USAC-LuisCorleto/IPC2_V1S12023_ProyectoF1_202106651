@@ -11,5 +11,9 @@ class Sala:
         print(f"Capacidad: {self.capacidad}")
 
     def imprimir_sala(self):
-        print("-------------------------------------------------------------")
-        print(f"Número de sala: {self.numero_sala} Asientos: {self.capacidad}")
+        print("------------------------------------")
+        print(f"Número de sala: {self.numero_sala}")
+
+    def imprimir_asientos(self):
+        print("---------------------")
+        print(f"Capacidad: {self.capacidad}")

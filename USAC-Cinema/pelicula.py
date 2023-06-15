@@ -23,4 +23,4 @@ class Película:
 
     def imprimir_funciones(self):
         print("--------------------------------------------------------------------------")
-        print(f"Película: {self.titulo} Fecha de la función: {self.fecha_funcion} Hora de la función: {self.hora_funcion}")
+        print(f"Película: {self.titulo} | Fecha de la función: {self.fecha_funcion} | Hora de la función: {self.hora_funcion}")

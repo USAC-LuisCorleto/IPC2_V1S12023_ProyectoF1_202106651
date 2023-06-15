@@ -131,3 +131,21 @@ class ListaEnlazadaDoble:
         while actual is not None:
             actual.dato.imprimir_sala()
             actual = actual.siguiente
+    
+    def obtener_sala_encontrada(self, numero_sala):
+        actual = self.cabeza
+        sala_encontrada = None
+
+        while actual is not None:
+            if isinstance(actual.dato, Sala) and actual.dato.numero_sala == numero_sala:
+                sala_encontrada = actual.dato
+                break
+            actual = actual.siguiente
+
+        return sala_encontrada
+    
+    def Imprimir_capacidad(self):
+        actual = self.cabeza
+        while actual is not None:
+            actual.dato.imprimir_capacidad()
+            actual = actual.siguiente

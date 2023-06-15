@@ -85,6 +85,7 @@ class ListaEnlazadaCircularDoble:
 
             print("---------------------------------")
             print("Película eliminada correctamente.")
+            self.guardar_en_xml()
         else:
             print("----------------------------------------")
             print("La película no se encuentra en la lista.")

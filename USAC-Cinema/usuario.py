@@ -20,3 +20,11 @@ class Usuario:
     def imprimir_pelis_favs(self):
         for pelicula in self.peliculasFavoritas:
             print(pelicula)
+
+    def imprimir_historia(self):
+        for historial in self.historialBoletos:
+            print("--------------------------------")
+            for key, value in historial.items():
+                print(f"{key}: {value}")
+
+    

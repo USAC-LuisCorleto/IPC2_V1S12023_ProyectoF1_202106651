@@ -276,6 +276,7 @@ while True:
                                 print("-----------------------------------------")
                                 print("Películas que puede agregar a favoritos: ")
                                 ListaDobleCircular.Imprimir_pelis()
+                                print("----------------------------------")
                                 pelicula_fav_agregar = input("Ingresa el nombre de la película: ")
                                 
                                 nodo_actual = ListaDobleCircular.cabeza
@@ -310,6 +311,7 @@ while True:
                             if opcion_pelisFavs == "3":
                                 print("-------------")
                                 print("Regresando...")
+                                break
                     
                     if opcion_menUsuario == "3":
                         print("----------------------------------------------")
@@ -335,24 +337,91 @@ while True:
 
                             if nodo_actual == ListaDobleCircular.cabeza:
                                 break
+
                         if pelicula_encontrada:
+                            print("------------------------------------")
+                            print("Salas disponibles: ")
                             ListaDoble.Imprimir_sala()
-                            print("-------------------------------------------------------------")
+                            print("-------------------------------------------------------")
                             sala_seleccion = input("Ingrese el nombre de la sala en donde verá la función: ")
+                            sala_encotrada = ListaDoble.obtener_sala_encontrada(sala_seleccion)
+                            print("----------------------")
+                            print("Asientos disponibles: ")
+                            sala_encotrada.imprimir_asientos()
+                            print("----------------------------------------------------------------")
+                            asiento_selección = input("Seleccione un asiento dentro del rango de capacidad disponible: ")
+                            asiento_selección = int(asiento_selección)
+                            if 1 <= asiento_selección <= int(sala_encotrada.capacidad):
+                                print("--------------------------------")
+                                print("¿Desea agregar su número de NIT?")
+                                print("[1]. Sí.")
+                                print("[2]. No.")
+                                opcin_NIT = input()
+
+                                if opcin_NIT == "1":
+                                    print("-------------------------")
+                                    nit = input("Ingrese su número de NIT: ")
+                                    direccion = input("Ingrese su dirección: ")
+                                    boletos = input("Ingrese la cantidad de boletos: ")
+                                    total = int(boletos*35)
+                                    usuario_encontrado.historialBoletos.append({
+                                    'Nombre': usuario_encontrado.nombre,
+                                    'Apellido': usuario_encontrado.apellido,
+                                    'Teléfono': usuario_encontrado.telefono,
+                                    'Correo': usuario_encontrado.correo, 
+                                    'Fecha': fechaFuncion_compra, 
+                                    'Hora': horaFuncion_compra, 
+                                    'Sala': sala_seleccion,
+                                    'Asiento': str(asiento_selección), 
+                                    'Boletos': boletos, 
+                                    'Total': str(total), 
+                                    'NIT': nit, 
+                                    'Dirección': direccion, 
+                                    })
+                                    print("------------------------------")
+                                    print("Compra realizada éxitosamente.")
+                                
+                                if opcin_NIT == "2":
+                                    nit = "C/F"
+                                    direccion = input("Ingrese su dirección: ")
+                                    boletos = input("Ingrese la cantidad de boletos: ")
+                                    total = boletos*35
+                                    usuario_encontrado.historialBoletos.append({
+                                    'Nombre': usuario_encontrado.nombre + "\n",
+                                    'Apellido': usuario_encontrado.apellido + "\n",
+                                    'Teléfono': usuario_encontrado.telefono + "\n",
+                                    'Correo': usuario_encontrado.correo + "\n",
+                                    'Función': funcion_compra + "\n",
+                                    'Fecha': fechaFuncion_compra + "\n",
+                                    'Hora': horaFuncion_compra + "\n",
+                                    'Sala': sala_seleccion + "\n",
+                                    'Asiento': str(asiento_selección) + "\n",
+                                    'Boletos': boletos + "\n",
+                                    'Total': str(total) + "\n",
+                                    'NIT': nit + "\n",
+                                    'Dirección': direccion + "\n"
+                                    })
+                                    print("------------------------------")
+                                    print("Compra realizada éxitosamente.")
+                            else:
+                                print("El asiento seleccionado se encuentra fuera del rango de capacidad.")
+                                break
 
                         else:
                             print("--------------------------------------------")
                             print("Algún dato no coincide, vuelva a intentarlo.")
                             break
 
-
                     if opcion_menUsuario == "4":
                         print("--------------------------------")
                         print("Historial de boletos comprados: ")
+                        usuario_encontrado.imprimir_historia()
+                        
 
                     if opcion_menUsuario == "5":
                         print("------------------")
                         print("Cerrando sesión...")
+                        break
 
             #Si el usuario no fue encontrado simplemente sale de la condición y debe volver a intentarlo.
             else:
