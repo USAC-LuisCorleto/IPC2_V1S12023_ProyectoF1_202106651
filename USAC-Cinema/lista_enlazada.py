@@ -66,9 +66,9 @@ class ListaEnlazadaSimple:
         root = tree.getroot()
 
         for usuario_element in root.findall("usuario"):
-            correo_elem = usuario_element.find("correo")
-            if correo_elem.text == correo_antiguo:
-                correo_elem.text = usuario.correo
+            correo_element = usuario_element.find("correo")
+            if correo_element.text == correo_antiguo:
+                correo_element.text = usuario.correo
         
         tree.write("usuarios.xml")
 
@@ -77,23 +77,23 @@ class ListaEnlazadaSimple:
         root = tree.getroot()
 
         for usuario_element in root.findall("usuario"):
-            correo_elem = usuario_element.find("correo")
-            if correo_elem.text == usuario.correo:
+            correo_element = usuario_element.find("correo")
+            if correo_element.text == usuario.correo:
 
-                rol_elem = usuario_element.find("rol")
-                rol_elem.text = usuario.rol
+                rol_element = usuario_element.find("rol")
+                rol_element.text = usuario.rol
 
-                nombre_elem = usuario_element.find("nombre")
-                nombre_elem.text = usuario.nombre
+                nombre_element = usuario_element.find("nombre")
+                nombre_element.text = usuario.nombre
 
-                apellido_elem = usuario_element.find("apellido")
-                apellido_elem.text = usuario.apellido
+                apellido_element = usuario_element.find("apellido")
+                apellido_element.text = usuario.apellido
 
-                telefono_elem = usuario_element.find("telefono")
-                telefono_elem.text = usuario.telefono
+                telefono_element = usuario_element.find("telefono")
+                telefono_element.text = usuario.telefono
 
-                contraseña_elem = usuario_element.find("contrasena")
-                contraseña_elem.text = usuario.contraseña
+                contraseña_element = usuario_element.find("contrasena")
+                contraseña_element.text = usuario.contraseña
         tree.write("usuarios.xml")
             
     def eliminar_usuario(self, correo, contraseña):
@@ -114,9 +114,9 @@ class ListaEnlazadaSimple:
             tree = ET.parse("usuarios.xml")
             root = tree.getroot()
             for usuario_element in root.findall("usuario"):
-                correo_elem = usuario_element.find("correo")
-                contraseña_elem = usuario_element.find("contrasena")
-                if correo_elem.text == correo and contraseña_elem.text == contraseña:
+                correo_element = usuario_element.find("correo")
+                contraseña_element = usuario_element.find("contrasena")
+                if correo_element.text == correo and contraseña_element.text == contraseña:
                     root.remove(usuario_element)
                     break
             tree.write("usuarios.xml")
@@ -140,23 +140,23 @@ class ListaEnlazadaSimple:
         while actual is not None:
             usuario_element = ET.SubElement(root, "usuario")
 
-            rol_elem = ET.SubElement(usuario_element, "rol")
-            rol_elem.text = actual.dato.rol
+            rol_element = ET.SubElement(usuario_element, "rol")
+            rol_element.text = actual.dato.rol
             
-            nombre_elem = ET.SubElement(usuario_element, "nombre")
-            nombre_elem.text = actual.dato.nombre
+            nombre_element = ET.SubElement(usuario_element, "nombre")
+            nombre_element.text = actual.dato.nombre
 
-            apellido_elem = ET.SubElement(usuario_element, "apellido")
-            apellido_elem.text = actual.dato.apellido
+            apellido_element = ET.SubElement(usuario_element, "apellido")
+            apellido_element.text = actual.dato.apellido
 
-            telefono_elem = ET.SubElement(usuario_element, "telefono")
-            telefono_elem.text = actual.dato.telefono
+            telefono_element = ET.SubElement(usuario_element, "telefono")
+            telefono_element.text = actual.dato.telefono
 
-            correo_elem = ET.SubElement(usuario_element, "correo")
-            correo_elem.text = actual.dato.correo
+            correo_element = ET.SubElement(usuario_element, "correo")
+            correo_element.text = actual.dato.correo
 
-            contraseña_elem = ET.SubElement(usuario_element, "contrasena")
-            contraseña_elem.text = actual.dato.contraseña
+            contraseña_element = ET.SubElement(usuario_element, "contrasena")
+            contraseña_element.text = actual.dato.contraseña
 
             actual = actual.siguiente
 
@@ -172,23 +172,23 @@ class ListaEnlazadaSimple:
             while actual is not None:
                 usuario_element = ET.SubElement(root, "usuario")
 
-                rol_elem = ET.SubElement(usuario_element, "rol")
-                rol_elem.text = actual.dato.rol
+                rol_element = ET.SubElement(usuario_element, "rol")
+                rol_element.text = actual.dato.rol
                 
-                nombre_elem = ET.SubElement(usuario_element, "nombre")
-                nombre_elem.text = actual.dato.nombre
+                nombre_element = ET.SubElement(usuario_element, "nombre")
+                nombre_element.text = actual.dato.nombre
 
-                apellido_elem = ET.SubElement(usuario_element, "apellido")
-                apellido_elem.text = actual.dato.apellido
+                apellido_element = ET.SubElement(usuario_element, "apellido")
+                apellido_element.text = actual.dato.apellido
 
-                telefono_elem = ET.SubElement(usuario_element, "telefono")
-                telefono_elem.text = actual.dato.telefono
+                telefono_element = ET.SubElement(usuario_element, "telefono")
+                telefono_element.text = actual.dato.telefono
 
-                correo_elem = ET.SubElement(usuario_element, "correo")
-                correo_elem.text = actual.dato.correo
+                correo_element = ET.SubElement(usuario_element, "correo")
+                correo_element.text = actual.dato.correo
 
-                contraseña_elem = ET.SubElement(usuario_element, "contrasena")
-                contraseña_elem.text = actual.dato.contraseña
+                contraseña_element = ET.SubElement(usuario_element, "contrasena")
+                contraseña_element.text = actual.dato.contraseña
 
                 actual = actual.siguiente
 
@@ -204,13 +204,13 @@ class ListaEnlazadaSimple:
         self.cabeza = None
 
         for usuario_element in root.findall("usuario"):
-            rol_elem = usuario_element.find("rol").text
-            nombre_elem = usuario_element.find("nombre").text
-            apellido_elem = usuario_element.find("apellido").text
-            telefono_elem = usuario_element.find("telefono").text
-            correo_elem = usuario_element.find("correo").text
-            contraseña_elem = usuario_element.find("contrasena").text
+            rol_element = usuario_element.find("rol").text
+            nombre_element = usuario_element.find("nombre").text
+            apellido_element = usuario_element.find("apellido").text
+            telefono_element = usuario_element.find("telefono").text
+            correo_element = usuario_element.find("correo").text
+            contraseña_element = usuario_element.find("contrasena").text
 
-            nuevo_usuario = Usuario(rol_elem, nombre_elem, apellido_elem, telefono_elem, correo_elem, contraseña_elem)
+            nuevo_usuario = Usuario(rol_element, nombre_element, apellido_element, telefono_element, correo_element, contraseña_element)
             self.add(nuevo_usuario)
         self.actualizar_archivo_XML()

@@ -11,6 +11,7 @@ ListaSimple = ListaEnlazadaSimple()
 ListaDobleCircular = ListaEnlazadaCircularDoble()
 ListaDoble = ListaEnlazadaDoble()
 incremento = 0
+increment = 0
 pels_favoritas = []
 
 #Método para el menú
@@ -345,67 +346,75 @@ while True:
                             print("-------------------------------------------------------")
                             sala_seleccion = input("Ingrese el nombre de la sala en donde verá la función: ")
                             sala_encotrada = ListaDoble.obtener_sala_encontrada(sala_seleccion)
-                            print("----------------------")
-                            print("Asientos disponibles: ")
-                            sala_encotrada.imprimir_asientos()
-                            print("----------------------------------------------------------------")
-                            asiento_selección = input("Seleccione un asiento dentro del rango de capacidad disponible: ")
-                            asiento_selección = int(asiento_selección)
-                            if 1 <= asiento_selección <= int(sala_encotrada.capacidad):
-                                print("--------------------------------")
-                                print("¿Desea agregar su número de NIT?")
-                                print("[1]. Sí.")
-                                print("[2]. No.")
-                                opcin_NIT = input()
+                            if sala_encotrada:
+                                print("----------------------")
+                                print("Asientos disponibles: ")
+                                sala_encotrada.imprimir_asientos()
+                                print("----------------------------------------------------------------")
+                                asiento_selección = input("Seleccione un asiento dentro del rango de capacidad disponible: ")
+                                asiento_selección = int(asiento_selección)
+                                if 1 <= asiento_selección <= int(sala_encotrada.capacidad):
+                                    increment+=1
+                                    numero_boleto = f"#USACIPC2_202106651_{increment}"
+                                    print("--------------------------------")
+                                    print("¿Desea agregar su número de NIT?")
+                                    print("[1]. Sí.")
+                                    print("[2]. No.")
+                                    opcin_NIT = input()
 
-                                if opcin_NIT == "1":
-                                    print("-------------------------")
-                                    nit = input("Ingrese su número de NIT: ")
-                                    direccion = input("Ingrese su dirección: ")
-                                    boletos = input("Ingrese la cantidad de boletos: ")
-                                    total = int(boletos*35)
-                                    usuario_encontrado.historialBoletos.append({
-                                    'Nombre': usuario_encontrado.nombre,
-                                    'Apellido': usuario_encontrado.apellido,
-                                    'Teléfono': usuario_encontrado.telefono,
-                                    'Correo': usuario_encontrado.correo, 
-                                    'Fecha': fechaFuncion_compra, 
-                                    'Hora': horaFuncion_compra, 
-                                    'Sala': sala_seleccion,
-                                    'Asiento': str(asiento_selección), 
-                                    'Boletos': boletos, 
-                                    'Total': str(total), 
-                                    'NIT': nit, 
-                                    'Dirección': direccion, 
-                                    })
-                                    print("------------------------------")
-                                    print("Compra realizada éxitosamente.")
-                                
-                                if opcin_NIT == "2":
-                                    nit = "C/F"
-                                    direccion = input("Ingrese su dirección: ")
-                                    boletos = input("Ingrese la cantidad de boletos: ")
-                                    total = boletos*35
-                                    usuario_encontrado.historialBoletos.append({
-                                    'Nombre': usuario_encontrado.nombre + "\n",
-                                    'Apellido': usuario_encontrado.apellido + "\n",
-                                    'Teléfono': usuario_encontrado.telefono + "\n",
-                                    'Correo': usuario_encontrado.correo + "\n",
-                                    'Función': funcion_compra + "\n",
-                                    'Fecha': fechaFuncion_compra + "\n",
-                                    'Hora': horaFuncion_compra + "\n",
-                                    'Sala': sala_seleccion + "\n",
-                                    'Asiento': str(asiento_selección) + "\n",
-                                    'Boletos': boletos + "\n",
-                                    'Total': str(total) + "\n",
-                                    'NIT': nit + "\n",
-                                    'Dirección': direccion + "\n"
-                                    })
-                                    print("------------------------------")
-                                    print("Compra realizada éxitosamente.")
+                                    if opcin_NIT == "1":
+                                        print("-------------------------")
+                                        nit = input("Ingrese su número de NIT: ")
+                                        direccion = input("Ingrese su dirección: ")
+                                        boletos = input("Ingrese la cantidad de boletos: ")
+                                        total = int(boletos)*35
+                                        usuario_encontrado.historialBoletos.append({
+                                        'Boleto': numero_boleto,
+                                        'Nombre': usuario_encontrado.nombre,
+                                        'Apellido': usuario_encontrado.apellido,
+                                        'Teléfono': usuario_encontrado.telefono,
+                                        'Correo': usuario_encontrado.correo, 
+                                        'Fecha': fechaFuncion_compra, 
+                                        'Hora': horaFuncion_compra, 
+                                        'Sala': sala_seleccion,
+                                        'Asiento': str(asiento_selección), 
+                                        'Boletos': boletos, 
+                                        'Total': total, 
+                                        'NIT': nit, 
+                                        'Dirección': direccion, 
+                                        })
+                                        print("------------------------------")
+                                        print("Compra realizada éxitosamente.")
+                                    
+                                    if opcin_NIT == "2":
+                                        nit = "C/F"
+                                        direccion = input("Ingrese su dirección: ")
+                                        boletos = input("Ingrese la cantidad de boletos: ")
+                                        total = int(boletos)*35
+                                        usuario_encontrado.historialBoletos.append({
+                                        'Boleto': numero_boleto,
+                                        'Nombre': usuario_encontrado.nombre,
+                                        'Apellido': usuario_encontrado.apellido,
+                                        'Teléfono': usuario_encontrado.telefono,
+                                        'Correo': usuario_encontrado.correo,
+                                        'Función': funcion_compra,
+                                        'Fecha': fechaFuncion_compra,
+                                        'Hora': horaFuncion_compra,
+                                        'Sala': sala_seleccion,
+                                        'Asiento': str(asiento_selección),
+                                        'Boletos': boletos,
+                                        'Total': total,
+                                        'NIT': nit,
+                                        'Dirección': direccion
+                                        })
+                                        print("------------------------------")
+                                        print("Compra realizada éxitosamente.")
+                                else:
+                                    print("El asiento seleccionado se encuentra fuera del rango de capacidad.")
+                                    break
                             else:
-                                print("El asiento seleccionado se encuentra fuera del rango de capacidad.")
-                                break
+                                print("------------------")
+                                print("La sala no existe.")
 
                         else:
                             print("--------------------------------------------")
@@ -416,7 +425,6 @@ while True:
                         print("--------------------------------")
                         print("Historial de boletos comprados: ")
                         usuario_encontrado.imprimir_historia()
-                        
 
                     if opcion_menUsuario == "5":
                         print("------------------")
@@ -465,9 +473,20 @@ while True:
         
         #Selección ver listado de películas
         elif opcion=="3":
-            print("--USTED SE ENCUENTRA EN LA OPCIÓN VER LISTADO DE PELÍCULAS--")
-            ListaDobleCircular.Imprimir()
-            opcion_valida = True
+            while True:
+                print("------------------------------------------------------------")
+                print("--USTED SE ENCUENTRA EN LA OPCIÓN VER LISTADO DE PELÍCULAS--")
+                print("Elija una opción")
+                print("[1]. Ver cartelera.")
+                print("[2]. Regresar")
+                opcion_verPelis = input()
+                if opcion_verPelis == "1":
+                    ListaDobleCircular.Imprimir()
+                    break
+                if opcion_verPelis == "2":
+                    print("-------------")
+                    print("Regresando...")
+                opcion_valida = True
 
         else:
             print("Opción inválida, vuelva a intentarlo.")
